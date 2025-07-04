@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Faternun Bestiary</title>
+  <style>
+    body { font-family: sans-serif; background: #f4f1e6; margin: 0; padding: 20px; text-align: center; }
+    img { max-width: 300px; margin: 20px auto; display: block; border-radius: 12px; box-shadow: 0 0 10px #444; }
+    .button { margin: 10px; padding: 10px 20px; background: #333; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>📗 Faternun Bestiary</h1>
+  <div id="creatures"></div>
+  <button class="button" onclick="prev()">← Previous</button>
+  <button class="button" onclick="next()">Next →</button>
+  <script>
+    const creatures = [
+      { name: "Il’Rah’Mor", subtitle: "Herald of the Deep", danger: 5, image: "images/ilrahmor.png", traits: ["Speaks in ancient tone", "Controls storms", "Leaves memory pearls"] },
+      { name: "Kassidian", subtitle: "Fallen Starborn", danger: 4, image: "images/kassidian.png", traits: ["Mimics players", "Rewrites memories", "Speaks in stolen voices"] },
+      { name: "Khet’Ssaar", subtitle: "Serpent of Time", danger: 4, image: "images/khetsaar.png", traits: ["Distorts time", "Reflects magic", "Consumes thoughts"] },
+      { name: "Voidcaller", subtitle: "Servant of the Deep", danger: 2, image: "images/zovushiy.png", traits: ["Commands by scream", "Merges with water"] },
+      { name: "Hornal", subtitle: "Emotional Parasite", danger: 1, image: "images/hornal.png", traits: ["Feeds on emotions", "Rare reagent"] },
+      { name: "Nameless Elder", subtitle: "Wanderer of Borders", danger: 2, image: "images/starzec.png", traits: ["Demands a bone", "Immune to weapons"] },
+      { name: "Il'Xar Harpy", subtitle: "Curse Herald", danger: 5, image: "images/harpy.png", traits: ["Knows who heard it", "Forbids lies"] }
+    ];
+    let current = 0;
+    function render() {
+      const container = document.getElementById("creatures");
+      container.innerHTML = "";
+      const c = creatures[current];
+      container.innerHTML = `<div>
+        <h2>${c.name}</h2>
+        <p><em>${c.subtitle}</em></p>
+        <img src="${c.image}" alt="${c.name}" />
+        <p>Danger: ${"🔴".repeat(c.danger)}</p>
+        <ul style="text-align:left; display:inline-block;">${c.traits.map(t => `<li>${t}</li>`).join("")}</ul>
+      </div>`;
+    }
+    function prev() { current = (current - 1 + creatures.length) % creatures.length; render(); }
+    function next() { current = (current + 1) % creatures.length; render(); }
+    render();
+  </script>
+</body>
+</html>
